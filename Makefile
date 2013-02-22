@@ -5,20 +5,12 @@ show: all
 
 all: $(PDF) $(GNUPLOT) $(INKSCAPE) 
 	pdflatex --halt-on-error --output-directory=./tmp ./parallel-script.tex
-	bibtex ./tmp/parallel-script
 	pdflatex --halt-on-error --output-directory=./tmp ./parallel-script.tex
 	pdflatex --halt-on-error --output-directory=./tmp ./parallel-script.tex
 	cp ./tmp/parallel-script.pdf .
 	mv ./tmp/parallel-script.pdf ~/Dropbox/uni/Parallel\ Computing/Parallel-Script.pdf
 
-nobib:
-	pdflatex --halt-on-error --output-directory=./tmp ./parallel-script.tex
-	cp ./tmp/parallel-script.pdf .
-	mv ./tmp/parallel-script.pdf ..
-
 evince:
-	pdflatex --halt-on-error --output-directory=./tmp ./parallel-script.tex
-	bibtex ./tmp/parallel-script
 	pdflatex --halt-on-error --output-directory=./tmp ./parallel-script.tex
 	pdflatex --halt-on-error --output-directory=./tmp ./parallel-script.tex
 	mv ./tmp/parallel-script.pdf .
@@ -26,8 +18,7 @@ evince:
 
 okular:
 	pdflatex --halt-on-error --output-directory=./tmp ./parallel-script.tex
-	bibtex ./tmp/parallel-script
-	pdflatex --halt-on-error --output-directory=./tmp ./parallel-script.tex
+
 	pdflatex --halt-on-error --output-directory=./tmp ./parallel-script.tex
 	mv ./tmp/parallel-script.pdf .
 	okular ./parallel-script.pdf 2> /dev/null
