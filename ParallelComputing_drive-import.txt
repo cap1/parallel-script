@@ -1,0 +1,153 @@
+﻿Lecture “Parallel Computing”
+
+A Summary from winter semester 2012/2013
+
+
+
+
+Introduction
+Parallel Hardware: Enhancing Performance
+Caching
+Caching principles
+Issues
+Cache mappings
+Instruction Level Parallelism
+Pipelining
+Multiple issue
+Speculation
+Hardware multi-threading
+SIMD
+Vector processors
+Graphic Processing Units (GPUs)
+MIMD
+Distributed memory systems
+Shared Memory Interconnects
+Distributed Memory Systems
+Properties of Networks
+
+
+
+
+________________
+
+
+Introduction
+October 23, 2012
+
+
+The computing power has been growing ever since the first integrated circuit, but it has an ultimate limit: the speed of light. The performance of microprocessors has been increasing by 50% each year from 1986 till 2002. Since then the rate has decreased to only about 20% per year. This gain in performance resulted in the reduction of the size of integrated circuits. But as ICs become more dense for faster processing, they also consume more power and therefore generate more unwanted heat.
+To overcome the need for higher clock-rates, whom are needed to increase the performance on single core processing units, one is using multiple cores instead. With this parallelism, computers can gain in performance.
+
+
+1. Multicomputer
+1. multiple computers connected by an interconnection network
+2. features
+1. distributed-memory
+2. disjoint address space
+3. communication via message-passing
+1. i.e. a cluster of networked computers
+1. Multiprocessor
+1. multiple computing cores inside one machine
+2. features
+1. shared-memory
+2. single address space
+1. i.e. multiprocessor or multicore machines
+1. Hybrid
+1. a cluster of multiprocessors
+
+
+Parallel Computing and Distributed Computing may sound similar but differ in the fact that parallel computing only tries to solve one problem, where distributed computing is interested in solving a set of problems. Although they share some problems likes synchronization, communication, consistency and problem decomposition.
+Usually also software needs to fitted for parallel approaches, as algorithms can be solved in different ways and running of multiple instances of serial code is not very useful in most cases.
+Parallel Hardware: Enhancing Performance
+November 6, 2012
+Caching
+The classic von Neumann architecture does not contain any cache. Data and instruction stream are just loaded. CPUs are connected to the main memory via a bus. As this is a shared media, and the distance to it is, in terms of access times, far. Accessing a chunk of memory takes about 100 CPU cycles. Cache is located right on the same chip of the CPU and therefore can be access a lot faster, typically it takes up to 20 cpu cycles to get data from the cache.
+Caching principles
+Programs usually enforce some memory access locality, which means that the following memory access takes place in a nearby location. This can refer to spatial locality, which means that memory locations close in space will be accessed. It can also mean temporal locality, which refers to nearby in its temporal meaning.
+Both of these types are usually taken into account when data is cached. Depending on these information data is stored in the different levels of cache. Level 1 Cache refers then to the cache closest to the CPU and with growing numbers the cache is farrer away from the CPU. With more distance to the CPU the cache gets larger but is slower to access.
+Issues
+Caches add some complexity to loading data. The CPU must be able to determine whether the data is already in the cache or needs to be loaded from the main memory. This overhead must not be bigger than loading the data from the main memory, otherwise the cache is useless.
+The mayor issue with cache although is consistency. Especially in cases with more than one CPU. When data is altered in the Cache one can either directly update the values to the RAM. This technique is called ‘write-through’. As the CPU has to wait until the data is deposited in the main memory it is usually avoided as it is slower.
+If the CPU can mark data in the cache as ‘dirty’. When a new line of cache is loaded to this cache position, the dirty line will be written back to the memory. This technique is usually used and is referred to as ‘write-back’.
+Cache mappings
+The cache can be filled in different ways. This depends on the architecture of the cache and the logic and the principles that fill it.
+Full associative mapping means, that a new line can be placed anywhere in the cache. This is the most flexible way to add data to the cache but also the most difficult one to check if the data is currently in the cache.
+Direct mapped cache mapping defines unique locations in the cache that a line can be stored in. This is the easiest method to lookup if the data has been cached already, but as a cache cannot be as large as the main memory, chunks of it share a location in the cache. This means that certain parts of the memory cannot be cached at the same time, which is a drawback.
+N-way set associative stands for a cache mapping where a line can be placed in n different locations in the cache. This adds the necessity to determine which lines shall be kept and which shall be replaced or evicted.
+
+
+Knowledge about the cache mapping can be very helpful to speed up programs. If the a matrix is stored in ‘row-major’ and one loads it ‘column-major’-wise, this leads to cachelines being loaded and discarded very often.
+
+
+Instruction Level Parallelism
+To improve processor performance by having multiple processor components of functional units simultaneously executing program instruction is the main idea of instruction level parallelism (ILP). There are two flavours, Pipelining, where functional units are arranged in stages and Multiple issue, where multiple instructions are initiated simultaneously.
+Pipelining
+The floating point adder is divided into 7 separate pieces of hardware or functional units. The first one fetches the operands, the second compares exponents the third shifts one operand if necessary, the fourth unit performs the actual add and so on. The last, the seventh unit the stores the result. With this type of parallelism every unit can be utilized better as none of them is ever involved in the same addition. Depending on their position in the Pipeline and the point of view, they are several additions ahead or behind.
+If one assumes that each operation takes one nanosecond, one floating point addition will take 7 nanoseconds. However using pipelining 1000 floating point additions will only take 1006 nanoseconds and not 7000 ns.
+Multiple issue
+This type of processor replicates functional units and tries to simultaneously execute different instructions in a program. A typical example is to sum up values from two different arrays (x, y) and store them in a third (z). With a running variable (i), the follow additions can be done simultaneously by two different sets of functional units:
+        
+        z[i] = x[i] + y[i];
+1. z[1] = x[1] + y[1]
+2. z[2] = x[2] + y[2]
+
+
+There are two types of Multiple issue, static and dynamic. In Static Multiple Issue, the functional units are assigned and scheduled at the compile time of the code. In Dynamic Multiple Issue, the scheduling takes place at run-time. A processor supporting dynamic multiple issue is often called a ‘superscalar’.
+Speculation
+In Speculative Execution the computers guesses which parts of the code can be executed in parallel. Not in all cases it is just as obvious as above, but in some cases it can be done. This depends on the code given to the computer.
+Hardware multi-threading
+Threads offer a great opportunity to do introduce parallelism, as the programmer defines clearly what can be done in parallel. Supporting multiple threads on hardware level allows the system do useful work when the task being currently executed has stalled for any reason. Typical reasons are the wait for I/O or data to be loaded from memory. Multi-threading is characterized by the typical execution time for a thread.
+
+
+Fine-grained multithreading will switch threads in the processor after every instruction, thereby skipping threads that are currently stalled. This technique avoids wasting machine time, as it will skip every potential  threat. A thread that consists of a long sequence of instruction will have to wait longer, as the instructions are only executed one by one.
+Simultaneous multithreading (SMT) is an even finer grained variant, that allows multiple threads to make use of multiple functional units.
+
+
+Coarse-grained multithreading only switches the threads if the current one stalls and has to wait for a time-consuming  operation to complete. This leads to lesser thread switches, which allows threads with longer sequences of instructions to be executed in a row. It also is not that much dependent on fast switch between threads. Although the processor might idle for some time with this technique.
+SIMD
+Single Instruction - Multiple Dataset
+
+
+This technique utilizes processor that are only capable of a few instructions, but can perform these very fast. They are used in parallel, executing the same instruction on the different data streams. This was used extensively for vector processing for example.
+This architecture has some drawbacks, as all ALUs have to perform the same instruction or remain idle. In classic designs they were even required to operate synchronously and even todays ALUs do not have an instruction storage. Overall this makes SIMD efficient for large data parallel problems, but for nothing else.
+Vector processors
+In contrast to conventional CPUs who work on individual data elements of scalars, vector processors operate on arrays or on vectors of data. They incorporate special register and are able to store a vector of operands and perform an operation simultaneously on their contents. Therefore they are related to SIMD.
+Vector processors make use of interleaved memory organized in “banks”, that is accessible independently. The data they work on can be distributed over muliple banks therefore allowing access by more functional units. This memory is also optimized to loading and storing of successive elements.
+
+
+This kind of processors is fast and easy to use. Programmers can rely on compilers that are well optimized and can identify code that is vectorizable. Also they can provide information about code that is not vectorizable, which helps re evaluating it. Vector processors have a high memory bandwidth by design.
+On the other hand they are specialized on vectors, so they are not capable to process irregular data structures very well. Also they do not scale, as there is a finite limit to their abilities to handle larger problems.
+Graphic Processing Units (GPUs)
+As these types of specialized processing units became faster, they could also be used for other things than graphical computations. They incorporate so called shader functions that are part of pipelines. These shader functions can be programmed with a few lines of C code. They are implicitly parallel, since that is what they were used for in the first place, to work on multiple elements of a graphics stream. GPUs use the SIMD parallelism although they are not pure SIMD devices.
+
+
+MIMD
+Multiple Instruction - Multiple Data
+
+
+As the name suggests, it describes multiple simultaneous instructions streams operating on multiple data streams. It typically consists of a collection of fully independent processing units. Each of these have their own control unit and own ALUs. The collection of processing units is interconnected, but communication is implicitly by accessing the same memory and shared data structures. The multiple processing units are typically organized on a single chip, and can be referred to as multi-core processors. They are the most common type of shared-memory systems.
+
+
+
+
+
+Depending on the interconnect to the memory the access times will differ. This largely depends on if the memory is really shared or not.
+
+
+Distributed memory systems
+In these systems the CPU and the Memory are located more closely together than other CPUs. They are then connected via an Interconnect. The most common type is a Cluster. These systems consist of commodity hardware that is linked via a fast interconnect. Individual nodes in a cluster perform computations. These systems are also known as hybrid systems.
+They type of interconnect is very important, as it defines the speed of communication between the nodes. A typical connection is fiber via Infiniband. The Interconnects are separated in two groups, Shared Memory Interconnects and Distributed Memory Interconnects.
+Shared Memory Interconnects
+Shared Memory Interconnects use certain types of connections for all Nodes to communicated with each other. 
+Buses can be implemented relatively easy, but they do not scale well. As it is a shared medium, if too many nodes want to access it the overall performance decreases. They are only suited if the number of nodes to connect is small and scalability is not an issue.
+Crossbar interconnections allow some nodes in a network to communicate with each other. Depending on the connections other nodes are currently using, not all connections work at the same time. This enhances performance and makes them faster than buses. Crossbars also scale better than busses, but they still suffer from some the amount of wiring and switches needed, which makes them also more expensive.
+
+
+The performance of shared memory systems is highly dependent on the speed of the interconnect. As all CPUs use the same memory and do transactions on it using this interconnect.
+Distributed Memory Systems
+One distinguishes also two types of Distributed Memory Systems. Those who allow indirect connections and those who only allow direct connections between a node and a switch or between switches. 
+A toroidal network is a typical type of network used in distributed memory with direct interconnects. Others are Hypercubes and Omega networks. Fully connected networks are not considered as they may be very fast but do not scale at all.
+Properties of Networks
+Networks can be compared using certain properties which describe how well their nodes are interconnect with each other and how the networks behave when more nodes shall be added. These properties are important if one wants to choose a network for a certain use case.
+The Bisection width defines the number of possible simultaneous communications or connectivity. It describes how many connections can take place, across an equal divide of the network, between the halves.
+Related is the bisection bandwidth, which describes how much data can be transferred simultaneously between halves. It sums the bandwidth of the links in the bisection width.
