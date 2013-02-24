@@ -12,7 +12,7 @@
 
 \begin{document}
 
-\maketitle
+\maktitle
 \tableofcontents
 
 \section{Introduction} % (fold)
@@ -28,7 +28,24 @@
 	whom are needed to increase the performance on single core processing units,
 	one is using multiple cores instead.
 	With this parallelism, computers can gain in performance.
-% section introduction (e
-
+ 	\begin{description}
+ 		\item[Multicomputer] \hfill \\
+ 			\begin{itemize}
+ 				\item distributed-memory
+ 				\item disjoint address space
+ 				\item communication via message-passing
+ 				\item \textsl{i.e. a cluster of networked computers}
+ 			\end{itemize}
+ 		\item[Multiprocessor] \hfill \\
+ 			multiple computing cores inside one machine\\
+ 			\begin{itemize}
+ 				\item shared-memory
+ 				\item single address space
+ 				\item \textsl{i.e. multiprocessor or multicore machines}
+ 			\end{itemize}
+ 		\item[Hybrid] \hfill \\
+ 			a cluster of multiprocessors
+	\end{description}
+% section introduction (end)
 
 \end{document}
