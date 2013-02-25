@@ -209,5 +209,60 @@ To improve processor performance by having multiple processor components of func
 	Although the processor might idle for some time with this technique.
 % subsection hardware_multithreading (end)
 % section instruction_level_parallelism (end)
+\section{Classification} % (fold)
+\label{sec:classification}
+
+\subsection{Single Instruction Multiple Dataset} % (fold)
+\label{sub:single_instruction_multiple_dataset}
+	This technique utilizes processor that are only capable of a few instructions,
+	but can perform these very fast.
+	They are used in parallel, executing the same instruction on the different data streams. 
+	This was used extensively for vector processing for example.
+	This architecture has some drawbacks,
+	as all ALUs have to perform the same instruction or remain idle.
+	In classic designs they were even required to operate synchronously
+	and even todays ALUs do not have an instruction storage.
+	Overall this makes SIMD efficient for large data parallel problems,
+	but for nothing else.
+
+	\subsubsection{Vector processors} % (fold)
+	\label{ssub:vector_processors}
+	In contrast to conventional CPUs who work on individual data elements of scalars
+	vector processors operate on arrays or on vectors of data.
+	They incorporate special register and are able to store a vector of operands 
+	and perform an operation simultaneously on their contents.
+	Therefore they are related to SIMD.
+
+	Vector processors make use of interleaved memory organized in “banks”,
+	that is accessible independently.
+	The data they work on can be distributed over muliple banks,
+	therefore allowing access by more functional units.
+	This memory is also optimized to loading and storing of successive elements.
+
+	This kind of processors is fast and easy to use. 
+	Programmers can rely on compilers that are well optimized
+	and can identify code that is vectorizable.
+	Also they can provide information about code that is not vectorizable,
+	which helps re evaluating it.
+	Vector processors have a high memory bandwidth by design.
+	On the other hand they are specialized on vectors,
+	so they are not capable to process irregular data structures very well.
+	Also they do not scale,
+	as there is a finite limit to their abilities to handle larger problems.
+	% subsubsection vector_processors (end)
+	
+	\subsubsection{Graphic Processing Units} % (fold)
+	\label{ssub:graphic_processing_units}
+	As these types of specialized processing units became faster,
+	they could also be used for other things than graphical computations.
+	They incorporate so called shader functions that are part of pipelines.
+	These shader functions can be programmed with a few lines of C code.
+	They are implicitly parallel, since that is what they were used for in the first place,
+	to work on multiple elements of a graphics stream.
+	GPUs use the SIMD parallelism although they are not pure SIMD devices.
+	% subsubsection graphic_processing_units (end)
+% subsection single_instruction_multiple_dataset (end)
+
+% section classification (end)
 
 \end{document}
