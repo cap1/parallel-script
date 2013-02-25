@@ -298,6 +298,39 @@ which makes them also more expensive.
 The performance of shared memory systems is highly dependent on the speed of the interconnect. As all CPUs use the same memory and do transactions on it using this interconnect.
 % subsection shared_memory_systems (end)
 
+\subsection{Distributed Memory Systems} % (fold)
+\label{sub:distributed_memory_systems}
+In these systems the CPU and the Memory are located more closely together than other CPUs.
+They are then connected via an Interconnect.
+The most common type is a Cluster.
+These systems consist of commodity hardware that is linked via a fast interconnect.
+Individual nodes in a cluster perform computations.
+These systems are also known as hybrid systems.
+They type of interconnect is very important,
+as it defines the speed of communication between the nodes.
+A typical connection is fiber via Infiniband. 
+
+The Interconnects are separated in two groups, Shared Memory Interconnects and Distributed Memory Interconnects.
+Those who allow indirect connections and
+those who only allow direct connections between a node and a switch or between switches. 
+A toroidal network is a typical type of network used in distributed memory with direct interconnects. 
+Others are Hypercubes and Omega networks.
+Fully connected networks are not considered as they may be very fast but do not scale at all.
+
+\subsubsection{Properties of Networks} % (fold)
+\label{ssub:properties_of_networks}
+	Networks can be compared using certain properties
+	which describe how well their nodes are interconnect with each other 
+	and how the networks behave when more nodes shall be added.
+	These properties are important if one wants to choose a network for a certain use case.
+	The Bisection width defines the number of possible simultaneous communications or connectivity.
+	It describes how many connections can take place,
+	across an equal divide of the network, between the halves.
+	Related is the bisection bandwidth,
+	which describes how much data can be transferred simultaneously between halves.
+	It sums the bandwidth of the links in the bisection width.
+% subsubsection properties_of_networks (end)
+% subsection distributed_memory_systems (end)
 % section classification (end)
 
 \end{document}
