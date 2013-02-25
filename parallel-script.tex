@@ -130,4 +130,84 @@ typically it takes up to 20 cpu cycles to get data from the cache.
 % subsection cache_mapping (end)
 % section caching (end)
 
+\section{Instruction Level Parallelism} % (fold)
+\label{sec:instruction_level_parallelism}
+To improve processor performance by having multiple processor components of functional units simultaneously executing program instruction is the main idea of instruction level parallelism (ILP). There are two flavours, Pipelining, where functional units are arranged in stages and Multiple issue, where multiple instructions are initiated simultaneously.
+
+\subsection{Pipelining} % (fold)
+\label{sub:pipelining}
+	The floating point adder is divided into 7 separate pieces of hardware or functional units.
+	The first one fetches the operands, 
+	he second compares exponents,
+	the third shifts one operand if necessary,
+	the fourth unit performs the actual add and so on.
+	The last, the seventh unit the stores the result.
+	With this type of parallelism every unit can be utilized better
+	as none of them is ever involved in the same addition.
+	Depending on their position in the Pipeline and the point of view,
+	they are several additions ahead or behind.
+	If one assumes that each operation takes one nanosecond,
+	one floating point addition will take 7 nanoseconds.
+	However using pipelining 1000 floating point additions will only take 1006 nanoseconds
+	and not 7000 ns.
+% subsection pipelining (end)
+
+\subsection{Multiple Issue} % (fold)
+\label{sub:multiple_issue}
+	This type of processor replicates functional units
+	and tries to simultaneously execute different instructions in a program.
+	A typical example is to sum up values from two different arrays (x, y)
+	and store them in a third (z).
+	With a running variable (i),
+	the follow additions can be done simultaneously by two different sets of functional units:\\
+	\begin{center}
+		z[i] = x[i] + y[i];
+		\begin{enumerate}
+			\item z[1] = x[1] + y[1]
+			\item z[2] = x[2] + y[2]
+		\end{enumerate}
+	\end{center}
+	\\
+	There are two types of Multiple issue, static and dynamic.
+	In Static Multiple Issue, the functional units are assigned
+	and scheduled at the compile time of the code.
+	In Dynamic Multiple Issue, the scheduling takes place at run-time.
+	A processor supporting dynamic multiple issue is often called a ‘superscalar’.
+% subsection multiple_issue (end)
+
+\subsection{Speculation} % (fold)
+\label{sub:speculation}
+	In Speculative Execution the computers guesses which parts of the code can be executed in parallel.
+	Not in all cases it is just as obvious as above,
+	but in some cases it can be done.
+	This depends on the code given to the computer.
+% subsection speculation (end)
+
+\subsection{Hardware Multithreading} % (fold)
+\label{sub:hardware_multithreading}
+	Threads offer a great opportunity to do introduce parallelism,
+	as the programmer defines clearly what can be done in parallel.
+	Supporting multiple threads on hardware level allows the system do useful work
+	when the task being currently executed has stalled for any reason.
+	Typical reasons are the wait for I/O or data to be loaded from memory.
+	Multi-threading is characterized by the typical execution time for a thread.
+
+	Fine-grained multithreading will switch threads in the processor after every instruction,
+	thereby skipping threads that are currently stalled.
+	This technique avoids wasting machine time,
+	as it will skip every potential threat.
+	A thread that consists of a long sequence of instruction will have to wait longer,
+	as the instructions are only executed one by one.
+	Simultaneous multithreading (SMT) is an even finer grained variant,
+	that allows multiple threads to make use of multiple functional units.
+
+	Coarse-grained multithreading only switches the threads if the current one stalls
+	and has to wait for a time-consuming operation to complete.
+	This leads to lesser thread switches,
+	which allows threads with longer sequences of instructions to be executed in a row.
+	It also is not that much dependent on fast switch between threads.
+	Although the processor might idle for some time with this technique.
+% subsection hardware_multithreading (end)
+% section instruction_level_parallelism (end)
+
 \end{document}
