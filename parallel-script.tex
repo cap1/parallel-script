@@ -263,6 +263,21 @@ To improve processor performance by having multiple processor components of func
 	% subsubsection graphic_processing_units (end)
 % subsection single_instruction_multiple_dataset (end)
 
+\subsection{Multiple Instruction Multiple Dataset} % (fold)
+\label{sub:multiple_instruction_multiple_dataset}
+As the name suggests,
+it describes multiple simultaneous instructions streams operating on multiple data streams.
+It typically consists of a collection of fully independent processing units.
+Each of these have their own control unit and own ALUs.
+The collection of processing units is interconnected,
+but communication is implicitly by accessing the same memory and shared data structures.
+The multiple processing units are typically organized on a single chip
+and can be referred to as multi-core processors.
+They are the most common type of shared-memory systems.
+Depending on the interconnect to the memory the access times will differ. 
+This largely depends on if the memory is really shared or not.
+% subsection multiple_instruction_multiple_dataset (end)
+
 % section classification (end)
 
 \end{document}
