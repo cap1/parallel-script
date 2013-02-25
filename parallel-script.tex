@@ -278,6 +278,26 @@ Depending on the interconnect to the memory the access times will differ.
 This largely depends on if the memory is really shared or not.
 % subsection multiple_instruction_multiple_dataset (end)
 
+\subsection{Shared Memory Systems} % (fold)
+\label{sub:shared_memory_systems}
+Shared Memory Interconnects use certain types of connections
+for all Nodes to communicated with each other. 
+Buses can be implemented relatively easy,
+but they do not scale well.
+As it is a shared medium,
+if too many nodes want to access it the overall performance decreases.
+They are only suited if the number of nodes to connect is small and scalability is not an issue.
+Crossbar interconnections allow some nodes in a network to communicate with each other.
+Depending on the connections other nodes are currently using,
+not all connections work at the same time.
+This enhances performance and makes them faster than buses.
+Crossbars also scale better than busses,
+but they still suffer from some the amount of wiring and switches needed,
+which makes them also more expensive.
+
+The performance of shared memory systems is highly dependent on the speed of the interconnect. As all CPUs use the same memory and do transactions on it using this interconnect.
+% subsection shared_memory_systems (end)
+
 % section classification (end)
 
 \end{document}
