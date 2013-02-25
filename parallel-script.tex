@@ -58,4 +58,76 @@
 	and running of multiple instances of serial code is not very useful in most cases.
 % section introduction (end)
 
+\section{Caching} % (fold)
+\label{sec:caching}
+The classic von Neumann architecture does not contain any cache.
+Data and instruction stream are just loaded.
+CPUs are connected to the main memory via a bus.
+As this is a shared media, and the distance to it is,
+in terms of access times, far.
+Accessing a chunk of memory takes about 100 CPU cycles.
+Cache is located right on the same chip of the CPU and therefore can be access a lot faster,
+typically it takes up to 20 cpu cycles to get data from the cache.
+
+\subsection{Caching principles} % (fold)
+\label{sub:caching_principles}
+	Programs usually enforce some memory access locality,
+	which means that the following memory access takes place in a nearby location. 
+	This can refer to spatial locality,
+	which means that memory locations close in space will be accessed.
+	It can also mean temporal locality, which refers to nearby in its temporal meaning.
+	Both of these types are usually taken into account when data is cached.
+	Depending on these information data is stored in the different levels of cache.
+	Level 1 Cache refers then to the cache closest to the CPU 
+	nd with growing numbers the cache is farrer away from the CPU.
+	With more distance to the CPU the cache gets larger but is slower to access.
+% subsection caching_principles (end)
+
+\subsection{Issues} % (fold)
+\label{sub:issues}
+	Caches add some complexity to loading data.
+	The CPU must be able to determine whether the data is already in the cache
+	or needs to be loaded from the main memory.
+	This overhead must not be bigger than loading the data from the main memory,
+	otherwise the cache is useless.
+	The mayor issue with cache although is consistency.
+	Especially in cases with more than one CPU.
+	When data is altered in the Cache one can either directly update the values to the RAM.
+	This technique is called ‘write-through’.
+	As the CPU has to wait until the data is deposited in the main memory,
+	it is usually avoided as it is slower.
+	If the CPU can mark data in the cache as ‘dirty’.
+	When a new line of cache is loaded to this cache position,
+	the dirty line will be written back to the memory.
+	This technique is usually used and is referred to as ‘write-back’.
+% subsection issues (end)
+
+\subsection{Cache mapping} % (fold)
+\label{sub:cache_mapping}
+	The cache can be filled in different ways.
+	This depends on the architecture of the cache
+	and the logic and the principles that fill it.
+	Full associative mapping means,
+	that a new line can be placed anywhere in the cache.
+	This is the most flexible way to add data to the cache
+	but also the most difficult one to check if the data is currently in the cache.
+
+	Direct mapped cache mapping defines unique locations in the cache that a line can be stored in. This is the easiest method to lookup if the data has been cached already,
+	but as a cache cannot be as large as the main memory,
+	chunks of it share a location in the cache.
+	This means that certain parts of the memory cannot be cached at the same time,
+	which is a drawback.
+
+	N-way set associative stands for a cache mapping,
+	where a line can be placed in n different locations in the cache.
+	This adds the necessity to determine which lines shall be kept
+	and which shall be replaced or evicted.
+
+	Knowledge about the cache mapping can be very helpful to speed up programs.
+	If the a matrix is stored in ‘row-major’
+	and one loads it ‘column-major’-wise,
+	this leads to cachelines being loaded and discarded very often.
+% subsection cache_mapping (end)
+% section caching (end)
+
 \end{document}
