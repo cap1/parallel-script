@@ -317,6 +317,36 @@ A toroidal network is a typical type of network used in distributed memory with 
 Others are Hypercubes and Omega networks.
 Fully connected networks are not considered as they may be very fast but do not scale at all.
 
+\subsubsection{Interconnects} % (fold)
+\label{ssub:interconnects}
+	\begin{description}
+		\item[Crossbar] \hfill \\
+		\item[Mesh] \hfill \\
+			In a two-dimensional Mesh, a node is connected to its neighbours
+			and it is usually organized in squars,
+			where one node is at least connected to two nodes.
+			Theses are the nodes in the corners,
+			nodes on the side are connected to three other nodes
+			and the ones on the center are connected to four other nodes.
+		\item[Torus] \hfill \\
+			A Tous is like a Mesh but all nodes are connected with four other nodes.
+			This is acomplished by connecting the outer nodes on one side,
+			with the other outer node on the outer side.
+		\item[Hypercube] \hfill \\
+			Hypercubes consist at least three-dimensional cubes,
+			where the corners are the compute nodes.
+			A four-dimensional hypercube can be pictured as having a smaller cube inside a larger one.
+		\item[Omega Network] \hfill \\
+			This type of Network is currently used.
+			It consists of layers of switches and computes.
+			These can be added and allow a scalable network,
+			that can be extend in both two dimensional directions.
+			Butterfly Networks are essential the same
+			and Omega Networks can be transformed into them.
+			Butterfly networks can be drawn easier but cannot be easily implemented in that way.
+	\end{description}
+% subsubsection interconnects (end)
+
 \subsubsection{Properties of Networks} % (fold)
 \label{ssub:properties_of_networks}
 	Networks can be compared using certain properties
