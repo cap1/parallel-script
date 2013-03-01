@@ -320,14 +320,16 @@ Fully connected networks are not considered as they may be very fast but do not 
 \subsubsection{Interconnects} % (fold)
 \label{ssub:interconnects}
 	\begin{description}
-		\item[Crossbar] \hfill \\
-		\item[Mesh] \hfill \\
+			\item[Mesh] \hfill \\
 			In a two-dimensional Mesh, a node is connected to its neighbours
 			and it is usually organized in squars,
 			where one node is at least connected to two nodes.
 			Theses are the nodes in the corners,
 			nodes on the side are connected to three other nodes
 			and the ones on the center are connected to four other nodes.
+		\item[Crossbar] \hfill \\
+			In crossbars, nodes are attached to one side of a two dimensional mesh.
+			This enables a scalable and easy to implement network.
 		\item[Torus] \hfill \\
 			A Tous is like a Mesh but all nodes are connected with four other nodes.
 			This is acomplished by connecting the outer nodes on one side,
