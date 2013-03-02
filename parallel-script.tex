@@ -385,6 +385,17 @@ Serial programms can be executed in parallel,
 but this does never fully leverage the capabilities of a parallel hardware.
 This approach gets unfeasible as soon as the complexity of the serial programms becomes an issue.
 
+\subsection{Data- \& Task Parallelism} % (fold)
+\label{sub:data_task_parallelism}
+	Parallelism can be introduced in two different fashions,
+	but both base on a classical devide-and-conquer approach.
+	They can also be related to the classification like SIMD, MIMD and MISD.\\
+	\textsl{Task paralellism} partitions a larger task into subtasks,
+	that are carried out by the cores or computes.
+
+	\textsl{Data paralelism} splits the data to work on into smaller chunks
+	and the same task gets carried out on different data on the cores or computes.
+% subsection data_task_parallelism (end)
 % section parallel_software (end)
 
 \end{document}
