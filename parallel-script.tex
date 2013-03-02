@@ -167,7 +167,7 @@ To improve processor performance by having multiple processor components of func
 			\item z[2] = x[2] + y[2]
 		\end{enumerate}
 	\end{center}
-	
+
 	There are two types of Multiple issue, static and dynamic.
 	In Static Multiple Issue, the functional units are assigned
 	and scheduled at the compile time of the code.
@@ -375,5 +375,16 @@ Fully connected networks are not considered as they may be very fast but do not 
 % subsubsection properties_of_networks (end)
 % subsection distributed_memory_systems (end)
 % section classification (end)
+
+\section{Parallel Software} % (fold)
+\label{sec:parallel_software}
+Software needs to be designed with parallalization in mind,
+as software written for serial execution will not result in any speedup on parallel machines.
+There is no easy way transforming serial code into parallel code.
+Serial programms can be executed in parallel,
+but this does never fully leverage the capabilities of a parallel hardware.
+This approach gets unfeasible as soon as the complexity of the serial programms becomes an issue.
+
+% section parallel_software (end)
 
 \end{document}
