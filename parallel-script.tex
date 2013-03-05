@@ -476,7 +476,7 @@ When threads are terminated they are joined with the main process who created th
 	but they are not terminated until the final cleanup.
 	This is better performance wise,
 	but potential can waste system resources.
-	% paragraph memory_and_threading (end)
+% paragraph memory_and_threading (end)
 
 \paragraph*{Single Programm, Multiple Data} % (fold)
 \label{par:single_programm_multiple_data}
@@ -490,7 +490,18 @@ When threads are terminated they are joined with the main process who created th
 	and is very typical for parallel programming.
 % paragraph single_programm_multiple_data (end)
 
+\paragraph*{Non-Determinism} % (fold)
+\label{par:non_determinism}
+	As the handling and scheduling of the threads is done by the operating system,
+	the master thread looses control over the time of exection.
+	This may result in problems with determinism,
+	that have to be considered.
+	One has to make sure to think of possible race conditions
+	and critical sections of the code.
+	The occurring problems can be addressed by using a mutex or a simple lock,
+	to ensure the consistency of the data.
+% paragraph non_determinism(end)
+
 % subsection processes_&_threads (end)
 % section parallel_software (end)
-
 \end{document}
