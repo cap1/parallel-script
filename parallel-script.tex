@@ -6,11 +6,18 @@
 \usepackage{textcomp}
 \usepackage{multirow}
 \usepackage{color}
+\usepackage{listings}
+\usepackage{float}
 
 \author{Christian Mueller}
 \title{Parallel Computing Script}
 
 \begin{document}
+
+%Settings for Listings Environment
+\newfloat{code}{h}{Listing}
+\floatname{code}{Listing}
+\lstset{language=Perl,frame=L}
 
 \maketitle
 \tableofcontents
@@ -395,6 +402,43 @@ This approach gets unfeasible as soon as the complexity of the serial programms 
 
 	\textsl{Data paralelism} splits the data to work on into smaller chunks
 	and the same task gets carried out on different data on the cores or computes.
+
+	A real world example to distinguish both is a correcting an 300 exams by 3 teaching assistants.
+	Data paralellism is used,
+	when the professor assigns each TA 100 exams to correct.
+	Task parallelism is peformed,
+	when each of the TA is assigned a certain range of questions in the exams to correct.
+	For examples in Perlcode see Listing \ref{code:dataParalellism} and \ref{code:taskParalellism}.
+
+	\begin{code}
+	\begin{lstlisting}
+	$sum = 0;
+	for ($i = 0; $i < $n; $i++) {
+		$x = &computeNextValue($foo);
+		$sum += $x;
+	}
+	\end{lstlisting}
+	\caption{Data Paralellism}
+	\end{code}
+	\label{code:dataParalellism}
+
+	\begin{code}
+	\begin{lstlisting}
+	if ($master) {
+		$sum = $my_x;
+		foreach $core (@cores) {
+			$sum += &receiveValue($core);
+		}
+	}
+	else {
+		$x = &computeNextValue($foo);
+		&sendValue($master, $x);
+	}
+	\end{lstlisting}
+	\caption{Task paralellism}
+	\end{code}
+	\label{code:taskParalellism}
+
 % subsection data_task_parallelism (end)
 % section parallel_software (end)
 
