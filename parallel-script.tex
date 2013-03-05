@@ -418,7 +418,7 @@ This approach gets unfeasible as soon as the complexity of the serial programms 
 		$sum += $x;
 	}
 	\end{lstlisting}
-	\caption{Data Paralellism}
+	\caption{Data Parallelism}
 	\end{code}
 	\label{code:dataParalellism}
 
@@ -435,11 +435,34 @@ This approach gets unfeasible as soon as the complexity of the serial programms 
 		&sendValue($master, $x);
 	}
 	\end{lstlisting}
-	\caption{Task paralellism}
+	\caption{Task parallelism}
 	\end{code}
 	\label{code:taskParalellism}
-
 % subsection data_task_parallelism (end)
+
+\subsection{Processes \& Threads} % (fold)
+\label{sub:processes_&_threads}
+Threads are smallest sequence of computer code that can be managed independently by a scheduler. %\cite{wpEnThred}
+A thread is in most cases associated with a process,
+who creates it.
+In contrast to heavy processes,
+threads only incorporate their own stack, program counter and identifier,
+making them very lightweight.
+As the additional structures offered by process are usually not necessary,
+threads are very commonly used in parallel software.
+Their lightweightedess allows to create them fast and with little overhead.
+Forking a new process takes longer needs more resources.
+When threads are terminated they are joined with the main process who created them.
+
+Depending on the type of memory involved different approaches are taken.
+In a shared memory program,
+a single process is started who forks threads that carry out the tasks.
+In distributed memory programs,
+multiple processes are started and they carry out the tasks.
+Threads cannot leave a machine,
+therefore it it is not feasible in distributed memory programs.
+Although threads might be involved in solving the tasks along with the process in distribute memory environments.
+% subsection processes_&_threads (end)
 % section parallel_software (end)
 
 \end{document}
