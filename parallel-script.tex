@@ -454,17 +454,32 @@ Their lightweightendess allows to create them fast and with little overhead.
 Forking a new process takes longer needs more resources.
 When threads are terminated they are joined with the main process who created them.
 
-Depending on the type of memory involved different approaches are taken.
-In a shared memory program,
-a single process is started who forks threads that carry out the tasks.
-In distributed memory programs,
-multiple processes are started and they carry out the tasks.
-Threads cannot leave a machine,
-therefore it it is not feasible in distributed memory programs.
-Although threads might be involved in solving the tasks along with the process in distribute memory environments.
+\paragraph*{Memory and threading} % (fold)
+\label{par:memory_and_threading}
+	Depending on the type of memory involved different approaches are taken.
+	In a shared memory program,
+	a single process is started who forks threads that carry out the tasks.
+	In distributed memory programs,
+	multiple processes are started and they carry out the tasks.
+	Threads cannot leave a machine,
+	therefore it it is not feasible in distributed memory programs.
+	Although threads might be involved in solving the tasks along with the process in distribute memory environments.\\
 
-	\paragraph*{Single Programm, Multiple Data} % (fold)
-	\label{par:single_programm_multiple_data}
+	In a shared memory environment,
+	threads can be managed in two different ways.
+	\textsl{Dynamic threads} The master thread forks a given number of worker threads
+	and forks new ones if another one is finished.
+	This uses resources efficiently,
+	but the creation of threads and their termination might be time consuming.\\
+	\textsl{Static threads} are pooled and started upfront.
+	The load is spread amongst them,
+	but they are not terminated until the final cleanup.
+	This is better performance wise,
+	but potential can waste system resources.
+	% paragraph memory_and_threading (end)
+
+\paragraph*{Single Programm, Multiple Data} % (fold)
+\label{par:single_programm_multiple_data}
 	This directive uses a single binary file that is spread across the compute nodes.
 	In the beginning there is prominent if-else condition,
 	which decides about the job the binary will carry out.
@@ -473,7 +488,7 @@ Although threads might be involved in solving the tasks along with the process i
 	The master usually collects and integrates the work done by the workers.\\
 	This scheme can be implemented with threads or with processes
 	and is very typical for parallel programming.
-	% paragraph single_programm_multiple_data (end)
+% paragraph single_programm_multiple_data (end)
 
 % subsection processes_&_threads (end)
 % section parallel_software (end)
