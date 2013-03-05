@@ -328,8 +328,8 @@ Fully connected networks are not considered as they may be very fast but do not 
 \label{ssub:interconnects}
 	\begin{description}
 			\item[Mesh] \hfill \\
-			In a two-dimensional Mesh, a node is connected to its neighbours
-			and it is usually organized in squars,
+			In a two-dimensional Mesh, a node is connected to its neighbors
+			and it is usually organized in squares,
 			where one node is at least connected to two nodes.
 			Theses are the nodes in the corners,
 			nodes on the side are connected to three other nodes
@@ -339,7 +339,7 @@ Fully connected networks are not considered as they may be very fast but do not 
 			This enables a scalable and easy to implement network.
 		\item[Torus] \hfill \\
 			A Tous is like a Mesh but all nodes are connected with four other nodes.
-			This is acomplished by connecting the outer nodes on one side,
+			This is accomplished by connecting the outer nodes on one side,
 			with the other outer node on the outer side.
 		\item[Hypercube] \hfill \\
 			Hypercubes consist at least three-dimensional cubes,
@@ -369,12 +369,12 @@ Fully connected networks are not considered as they may be very fast but do not 
 	which describes how much data can be transferred simultaneously between halves.
 	It sums the bandwidth of the links in the bisection width.
 
-	The latency is defined as the time that elapses between the source starting a transmition
+	The latency is defined as the time that elapses between the source starting a transmission
 	and the sink receiving the first byte.
 	
-	The bandwidth is defined as the rate at which the sink receives data after receivin the first bytes.
+	The bandwidth is defined as the rate at which the sink receives data after receiving the first bytes.
 
-	The message tranmition time is defined as:\\
+	The message transmission time is defined as:\\
 		$$ T = L + n/b$$
 	Where L is latency in seconds,
 	n is the length of the message in bytes
@@ -385,30 +385,30 @@ Fully connected networks are not considered as they may be very fast but do not 
 
 \section{Parallel Software} % (fold)
 \label{sec:parallel_software}
-Software needs to be designed with parallalization in mind,
+Software needs to be designed with parallelization in mind,
 as software written for serial execution will not result in any speedup on parallel machines.
 There is no easy way transforming serial code into parallel code.
-Serial programms can be executed in parallel,
+Serial programs can be executed in parallel,
 but this does never fully leverage the capabilities of a parallel hardware.
-This approach gets unfeasible as soon as the complexity of the serial programms becomes an issue.
+This approach gets unfeasible as soon as the complexity of the serial programs becomes an issue.
 
 \subsection{Data- \& Task Parallelism} % (fold)
 \label{sub:data_task_parallelism}
 	Parallelism can be introduced in two different fashions,
-	but both base on a classical devide-and-conquer approach.
+	but both base on a classical divide-and-conquer approach.
 	They can also be related to the classification like SIMD, MIMD and MISD.\\
-	\textsl{Task paralellism} partitions a larger task into subtasks,
+	\textsl{Task parallelism} partitions a larger task into subtasks,
 	that are carried out by the cores or computes.
 
-	\textsl{Data paralelism} splits the data to work on into smaller chunks
+	\textsl{Data parallelism} splits the data to work on into smaller chunks
 	and the same task gets carried out on different data on the cores or computes.
 
 	A real world example to distinguish both is a correcting an 300 exams by 3 teaching assistants.
-	Data paralellism is used,
+	Data parallelism is used,
 	when the professor assigns each TA 100 exams to correct.
-	Task parallelism is peformed,
+	Task parallelism is performed,
 	when each of the TA is assigned a certain range of questions in the exams to correct.
-	For examples in Perlcode see Listing \ref{code:dataParalellism} and \ref{code:taskParalellism}.
+	For examples in Perl-code see Listing \ref{code:dataParalellism} and \ref{code:taskParalellism}.
 
 	\begin{code}
 	\begin{lstlisting}
