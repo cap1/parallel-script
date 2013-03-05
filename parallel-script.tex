@@ -450,7 +450,7 @@ threads only incorporate their own stack, program counter and identifier,
 making them very lightweight.
 As the additional structures offered by process are usually not necessary,
 threads are very commonly used in parallel software.
-Their lightweightedess allows to create them fast and with little overhead.
+Their lightweightendess allows to create them fast and with little overhead.
 Forking a new process takes longer needs more resources.
 When threads are terminated they are joined with the main process who created them.
 
@@ -462,6 +462,19 @@ multiple processes are started and they carry out the tasks.
 Threads cannot leave a machine,
 therefore it it is not feasible in distributed memory programs.
 Although threads might be involved in solving the tasks along with the process in distribute memory environments.
+
+	\paragraph*{Single Programm, Multiple Data} % (fold)
+	\label{par:single_programm_multiple_data}
+	This directive uses a single binary file that is spread across the compute nodes.
+	In the beginning there is prominent if-else condition,
+	which decides about the job the binary will carry out.
+	The running code will find out at runtime if he is run as a master
+	or as a worker.
+	The master usually collects and integrates the work done by the workers.\\
+	This scheme can be implemented with threads or with processes
+	and is very typical for parallel programming.
+	% paragraph single_programm_multiple_data (end)
+
 % subsection processes_&_threads (end)
 % section parallel_software (end)
 
