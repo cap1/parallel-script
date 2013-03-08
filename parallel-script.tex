@@ -500,8 +500,43 @@ When threads are terminated they are joined with the main process who created th
 	and critical sections of the code.
 	The occurring problems can be addressed by using a mutex or a simple lock,
 	to ensure the consistency of the data.
+
+	This fact also enhances the difficulty of debugging the code.
 % paragraph non_determinism(end)
 
+\paragraph*{Busy Waiting} % (fold)
+\label{par:busy_waiting}
+	Critical sections in the code can force the whole programm to wait for a certain computiation.
+	As the programm cannot continue without passing this critical section,
+	all other parts are busy, waiting for the critical section to passed.
+	Obviuosly one should reduce critical sections like these,
+	as they can lead to sever bottlenecks,
+	reducing overall performance
+% paragraph busy_waiting (end)
+
+\paragraph*{Message Passing} % (fold)
+\label{par:message_passing}
+	In parallel software,
+	the threads or distributed programms sometimes will need to communicate with each other.
+	Therefore mechanisms need to implemented to allow this communication.
+	A way to do this is MPI, the Message Passing Interface.
+% paragraph message_passing (end)
+
+\paragraph*{Input \& Output} % (fold)
+\label{par:input_&_output}
+	In a parallel programm,
+	one has to determine which parts of a programm are allowed to acces the standard input and output interfaces.
+	In distributed memory programms only process 0 will have access to StandardIn
+	and in a shared memory programm only the master thread
+	or thread 0 will have acces to StandardIn.
+
+	In both distributed and shared memory processes,
+	all process and threads will have access to StandardError and StandardOut.
+	As the output on both interfaces is usually buffered
+	and due to the non-deterministic order of runtime,
+	it is difficult to use the output for debugging the code.
+	Therefore output should always include and identification part.
+% paragraph input_&_output (end)
 % subsection processes_&_threads (end)
 % section parallel_software (end)
 \end{document}
