@@ -517,18 +517,18 @@ When threads are terminated they are joined with the main process who created th
 \paragraph*{Message Passing} % (fold)
 \label{par:message_passing}
 	In parallel software,
-	the threads or distributed programms sometimes will need to communicate with each other.
+	the threads or distributed programs sometimes will need to communicate with each other.
 	Therefore mechanisms need to implemented to allow this communication.
 	A way to do this is MPI, the Message Passing Interface.
 % paragraph message_passing (end)
 
 \paragraph*{Input \& Output} % (fold)
 \label{par:input_&_output}
-	In a parallel programm,
-	one has to determine which parts of a programm are allowed to acces the standard input and output interfaces.
-	In distributed memory programms only process 0 will have access to StandardIn
-	and in a shared memory programm only the master thread
-	or thread 0 will have acces to StandardIn.
+	In a parallel program,
+	one has to determine which parts of a program are allowed to access the standard input and output interfaces.
+	In distributed memory programs only process 0 will have access to StandardIn
+	and in a shared memory program only the master thread
+	or thread 0 will have access to StandardIn.
 
 	In both distributed and shared memory processes,
 	all process and threads will have access to StandardError and StandardOut.
@@ -539,4 +539,43 @@ When threads are terminated they are joined with the main process who created th
 % paragraph input_&_output (end)
 % subsection processes_&_threads (end)
 % section parallel_software (end)
+\section{Parallel Program Design} % (fold)
+\label{sec:parallel_program_design}
+
+\subsubsection{Fosters methodology} % (fold)
+\label{ssub:fosters_methodology}
+Ian Foster has proposed a methodology for designing parallel program.
+It divides the process in the four steps,
+abbreviated as \textsl{PCAM}.
+
+\paragraph{Partitioning} % (fold)
+\label{par:partitioning}
+	In this step one focuses on finding
+	and identifying tasks that can be parallelized.
+	The parallelization can be achieved either in task
+	or in data parallelism.
+% paragraph partitioning (end)
+\paragraph{Communication} % (fold)
+\label{par:communication}
+	In this step one determines which kind of communication between the
+	parallelized parts is necessary and needs to be implemented.
+	This also depends on the kind of parallel system one wants to use.
+% paragraph communication (end)
+\paragraph{Aggregation} % (fold)
+\label{par:aggregation}
+	During this step,
+	one combines task and communication identified in the first two steps
+	into larger \textsl{aggregated} tasks.
+	In this step one can also identify parts that need to be executed in a sequential fashion,
+	as they rely on previous parts.
+% paragraph aggregation (end)
+\paragraph{Mapping} % (fold)
+\label{par:mapping}
+	In the final step,
+	the task created are assigned to threads and processes.
+	Thereby one should try to minimized the need for communication,
+	as this usually enlarges the risk for failures.
+% paragraph mapping (end)
+% subsubsection fosters_methodology (end)
+% section parallel_program_design (end)
 \end{document}
